@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.share.topic.api.dao.IUserDao">
+	<!-- <ResultMap id="UserResultMap" type="org.share.topic.api.model.User">
+		<id property="user_id" column="userId" javaType="java.lang.Long"></id>
+        <result property="user_name" column="userName" javaType="java.lang.String"></result>
+	</ResultMap> -->
+	<select id="findUsers" resultType="org.share.topic.api.model.User">
+		select user_id,user_name from share_user_t
+	</select>
+</mapper>

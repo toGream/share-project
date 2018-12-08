@@ -1,0 +1,66 @@
+server:
+  port: 8082
+spring:
+  application: 
+    name: share-topic-servie
+################1.整合mybatis#################
+  datasource:
+    url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=47.107.142.153)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME =orcl)))
+    username: igeneral
+    password: igeneral
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+################2.邮件配置######################    
+  mail:
+    host: smtp.163.com
+    username: m13570826865@163.com
+    password: zyl562294358??
+    port: 25
+    properties:
+      mail:
+        smtp: 
+          auth: true
+          starttls:
+            enable: true
+            required: true
+#1.1使用freemarker模板
+  freemarker:
+    template-loader-path:
+    - classpath:/template
+    suffix: .flt
+    enabled: true
+    cache: false
+    content-type: text/html
+    charset: UTF-8 #编码格式
+    allow-request-override: false
+    check-template-location: true
+    expose-request-attributes: false #req访问request
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+#使用thymeleaf模板
+  thymeleaf:
+    prefix: classpath:/template/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+      
+    #注册中心地址
+eureka:
+  client:
+    service-url: 
+      defaultZone: http://localhost:8761/eureka
+#1.1实体类扫描包
+mybatis:
+  type-aliases-package: org.share.topic.api.model
+#1.2Mapper.xml文件扫描目录
+  mapper-locations: classpath:mapper/*.xml
+#1.3驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true
+#1.4分页
+pagehelper:
+  helper-dialect: oracle
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
