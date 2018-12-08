@@ -43,4 +43,56 @@ public class ShareTopicApplication {
 }
 
 ########################spring整合email#############################
+1.邮件服务
+1.1邮件核心jar包
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+1.2基本配置
+mail:
+    host: smtp.163.com
+    username: m13570826865@163.com
+    password: zyl562294358??
+    port: 25
+    properties:
+      mail:
+        smtp: 
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    
+2.使用velocity模板
+2.1引入jar包
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-velocity</artifactId>
+	<version>1.1.3.RELEASE</version>
+</dependency>
+2.2需要写个继承类（无法实例化），并设置初始化属性（找不到模板）
+@Component
+public class VelocityEngineBean extends VelocityEngine{
+	public VelocityEngineBean() {
+		this.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath"); 
+		this.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+	}
+}
+
+3.使用freemark模板
+3.1引入jar包
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-freemarker</artifactId>
+</dependency>
+3.2这个路径一定要这样指定否则找不到模板
+freemarker:
+    template-loader-path:
+    - classpath:/template
+
+
+
+
+
+
 
