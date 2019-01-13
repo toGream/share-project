@@ -6,8 +6,8 @@ import org.share.topic.api.domain.IUserService;
 import org.share.topic.api.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class UserService implements IUserService{
@@ -16,9 +16,11 @@ public class UserService implements IUserService{
 	private IUserDao userDao;
 
 	@Override
-	public List<User> findUsers() {
-		PageHelper.startPage(1, 2);
-		return userDao.findUsers();
+	public PageInfo<User> findUsers() {
+		PageHelper.startPage(1, 10);
+		List<User> users = userDao.findUsers();
+		PageInfo<User> pageInfo = new PageInfo<User>(users);
+		return pageInfo;
 	}
 	
 }

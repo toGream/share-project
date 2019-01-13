@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.share.topic.api.dao.ITopicDao">
+	<!-- <ResultMap id="UserResultMap" type="org.share.topic.api.model.User">
+		<id property="user_id" column="userId" javaType="java.lang.Long"></id>
+        <result property="user_name" column="userName" javaType="java.lang.String"></result>
+	</ResultMap> -->
+	<select id="queryTopics" resultType="org.share.topic.api.model.Topic">
+		select topic_id,topic_type,topic_title,topic_link,topic_author,creation_date from p_share_topic_t
+	</select>
+</mapper>

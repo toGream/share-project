@@ -1,24 +1,36 @@
 package org.share.topic.impl.controller;
 
-import java.util.List;
-
 import org.share.topic.api.domain.IMailService;
+import org.share.topic.api.domain.ITopicService;
 import org.share.topic.api.domain.IUserService;
 import org.share.topic.api.model.Email;
+import org.share.topic.api.model.Topic;
 import org.share.topic.api.model.User;
+import org.share.topic.impl.util.UrlConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.github.pagehelper.PageInfo;
 
 @RestController
 @RequestMapping("/topic")
 public class TopicController {
+	private Logger logger = LoggerFactory.getLogger(TopicController.class);
+	
+	@Autowired
+	private ITopicService topicService;
+	
 	@Autowired
 	private IUserService userService;
 	
 	@Autowired
 	private IMailService mailService;
+	
+	@Autowired
+	private UrlConfig urlConfig;
 	
 	@GetMapping("/test")
 	public String test() {
@@ -26,8 +38,13 @@ public class TopicController {
 	}
 	
 	@GetMapping("/users")
-	public List<User> findUsers(){
+	public PageInfo<User> findUsers(){
 		return userService.findUsers();
+	}
+	
+	@GetMapping("/topics")
+	public PageInfo<Topic> queryTopics(){
+		return topicService.queryTopics();
 	}
 	
 	@GetMapping("/email")
@@ -50,5 +67,11 @@ public class TopicController {
 		email.setTemplate("welcome");
 //		mailService.sendFreemarker(email);
 		mailService.sendFreemarker(email);
+	}
+	
+	@GetMapping("url")
+	public String getUrl() {
+		logger.info("test");
+		return urlConfig.getHome();
 	}
 }

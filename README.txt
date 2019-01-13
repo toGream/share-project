@@ -1,3 +1,12 @@
+Spring cloud相关功能:
+1.spring cloud整合mybatis
+2.spring整合email
+3.
+
+
+
+
+
 ######################spring cloud整合mybatis########################
 1.引入对应的依赖
 <dependency>
@@ -90,8 +99,12 @@ freemarker:
     template-loader-path:
     - classpath:/template
 
+########################spring整合logback-spring.xml日志#############################
+1.引入springboot <parent/>时已经默认使用logback对应的包,此包使用slf4j包具体实现
+2.在resources中创建logback-spring.xml,注意只有这个名字才能指定环境
 
-
+########################spring修改banner.txt#############################
+1.创建banner.txt输入自己想要的可以替换spring默认的输出图形
 
 
 

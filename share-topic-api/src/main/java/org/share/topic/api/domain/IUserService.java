@@ -1,8 +1,8 @@
 package org.share.topic.api.domain;
 
-import java.util.List;
 import org.share.topic.api.model.User;
+import com.github.pagehelper.PageInfo;
 
 public interface IUserService {
-	public List<User> findUsers();
+	public PageInfo<User> findUsers();
 }
