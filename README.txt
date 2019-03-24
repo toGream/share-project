@@ -1,7 +1,9 @@
 Spring cloud相关功能:
 1.spring cloud整合mybatis
 2.spring整合email
-3.
+3.spring整合logback-spring.xml日志
+4.spring修改banner.txt
+5.
 
 
 
@@ -20,6 +22,7 @@ Spring cloud相关功能:
     <version>11.1.0.7.0-Production</version>
 </dependency>
 注意：jdbc驱动需要先下载jar,执行mvn安装到仓库后再引入ojdbc.jar包，不然提示引入错误。
+	如果安装后还报错误，检查是否是maven配置的本地工厂目录与安装jdbc驱动的目录不一样，则需要修改工程配置的maven目录。
 
 2.application.yml需要的配置
 spring:

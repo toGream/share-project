@@ -1,19 +1,26 @@
 package org.share.topic.impl.controller;
 
+import java.util.Map;
+
 import org.share.topic.api.domain.IMailService;
 import org.share.topic.api.domain.ITopicService;
 import org.share.topic.api.domain.IUserService;
 import org.share.topic.api.model.Email;
 import org.share.topic.api.model.Topic;
 import org.share.topic.api.model.User;
+import org.share.topic.impl.anno.ModuleVO;
+import org.share.topic.impl.anno.MyListenerProcessor;
 import org.share.topic.impl.util.UrlConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageInfo;
+
+import groovy.transform.Synchronized;
 
 @RestController
 @RequestMapping("/topic")
@@ -32,8 +39,15 @@ public class TopicController {
 	@Autowired
 	private UrlConfig urlConfig;
 	
+	@Autowired
+	private MyListenerProcessor processor;
+	
 	@GetMapping("/test")
 	public String test() {
+		Map<String, ModuleVO> map = processor.getExportBean();
+		for(Map.Entry<String, ModuleVO> entry : map.entrySet()) {
+			System.err.println(entry.getKey()+":"+entry.getValue());
+		}
 		return "HelloWorld!";
 	}
 	

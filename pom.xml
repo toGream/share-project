@@ -25,6 +25,14 @@
 	  <artifactId>pagehelper-spring-boot-starter</artifactId>
 	  <version>1.1.2</version>
 	 </dependency> 
+	 
+	 <!-- https://mvnrepository.com/artifact/com.netflix.netflix-commons/netflix-commons-util -->
+	<dependency>
+	    <groupId>com.netflix.netflix-commons</groupId>
+	    <artifactId>netflix-commons-util</artifactId>
+	    <version>0.1.1</version>
+	</dependency>	
+	 
   </dependencies>
   <modules>
     <module>share-topic-api</module>
