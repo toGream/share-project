@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=47.107.142.153)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME =orcl)))
     username: igeneral
-    password: igeneral
+    password: password
     driver-class-name: oracle.jdbc.driver.OracleDriver
 ################2.邮件配置######################    
   mail:
