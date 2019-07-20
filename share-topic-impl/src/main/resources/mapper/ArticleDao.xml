@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.share.topic.api.dao.IArticleDao">
+
+	<insert id="saveArticle" parameterType="org.share.topic.api.model.article.ArticleDTO">
+		<selectKey resultType="long" keyProperty="articleId" order="BEFORE">
+			select share_article_s.nextval from dual
+		</selectKey>
+		insert into share_article_t
+			  (article_id,
+			   title,
+			   user_id,
+			   creation_date,
+			   last_update_date,
+			   poll_count,
+			   comment_count,
+			   class_id,
+			   is_essence,
+			   is_top,
+			   valid_flag
+			   )
+			   values(
+			   #{articleId, jdbcType=DECIMAL},
+			   #{title, jdbcType=VARCHAR},
+			   #{userId, jdbcType=DECIMAL},
+			   #{creationDate, jdbcType=TIMESTAMP},
+			   #{lastUpdateDate, jdbcType=TIMESTAMP},
+			   #{pollCount, jdbcType=DECIMAL},
+			   #{commentCount, jdbcType=DECIMAL},
+			   #{classId, jdbcType=DECIMAL},
+			   #{isEssence, jdbcType=DECIMAL},
+			   #{isTop, jdbcType=DECIMAL},
+			   #{validFlag, jdbcType=VARCHAR}
+			   )
+	</insert>
+	
+	<insert id="saveArticleDetail" parameterType="org.share.topic.api.model.article.ArticleDetailDTO">
+		<selectKey resultType="long" keyProperty="articleDetailId" order="BEFORE">
+			select share_article_detail_s.nextval from dual
+		</selectKey>
+		insert into share_article_detail_t
+			  (article_detail_id, 
+			   article_id, 
+			   content)
+				values
+			  (
+			  #{articleDetailId, jdbcType=DECIMAL},
+			  #{articleId, jdbcType=DECIMAL},
+			  #{content, jdbcType=CLOB}
+			  )
+	</insert>
+	
+	<resultMap id="ArticleResultMap" type="org.share.topic.api.model.article.ArticleCustomVVO">
+		<id column="article_id" property="articleId" jdbcType="BIGINT"/>
+		<result column="title" property="title" jdbcType="VARCHAR"/>
+		<result column="creation_date" property="creationDate" jdbcType="TIMESTAMP"/>
+		<result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+		<result column="poll_count" property="pollCount" jdbcType="BIGINT"/>
+		<result column="comment_count" property="commentCount" jdbcType="BIGINT"/>
+		<result column="class_id" property="classId" jdbcType="BIGINT"/>
+		<result column="is_essence" property="isEssence" jdbcType="BIGINT"/>
+		<result column="is_top" property="isTop" jdbcType="BIGINT"/>
+	</resultMap>
+	<select id="queryArticles" parameterType="org.share.topic.api.model.article.ArticleDTO" resultMap="ArticleResultMap">
+		select at.article_id,
+	       at.title,
+	       at.creation_date,
+	       at.last_update_date,
+	       at.poll_count,
+	       at.comment_count,
+	       at.class_id,
+	       at.is_essence,
+	       at.is_top
+	  from share_article_t at
+	 where at.valid_flag = 1
+	 and at.class_id = #{classId, jdbcType=DECIMAL}
+	</select>
+	
+	<select id="queryClassfications" resultType="org.share.topic.api.model.article.ClassficationCustomVVO">
+		select ct.class_id, ct.name from share_classfication_t ct
+	</select>
+	
+	<select id="showDetail" parameterType="long" resultType="org.share.topic.api.model.article.ArticleCustomVVO">
+		select at.article_id,
+		       at.title,
+		       at.creation_date,
+		       at.last_update_date,
+		       at.poll_count,
+		       at.comment_count,
+		       at.class_id,
+		       at.is_essence,
+		       at.is_top,
+		       adt.content
+		  from share_article_t at, share_article_detail_t adt
+		 where at.article_id = adt.article_id
+		 and at.valid_flag = 1
+		 and at.article_id = #{articleId, jdbcType=DECIMAL}
+	</select>
+</mapper>
