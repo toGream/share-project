@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/article")
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600)
+@CrossOrigin(origins = "http://zhongyiliang.cn", maxAge = 3600)
 public class ArticleController {
 	private Logger logger = LoggerFactory.getLogger(ArticleController.class);
 	
